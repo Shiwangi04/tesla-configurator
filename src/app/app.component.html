@@ -1,0 +1,12 @@
+<div class="box">
+<button class= "btn-group" id="step1" [routerLink]="['step1']" (click) = "onStep1BtnClick()">Step 1</button>
+<button class="btn-group" id="step2" [routerLink]="['step2']" [disabled]="isStep2ButtonDisable" (click)="onStep2BtnClick()">Step 2</button>
+<button class="btn-group" id="step3" [routerLink]="['step3']" [disabled]="isStep3ButtonDisable" (click)="onStep3BtnClick()">Step 3</button>
+
+<app-step1 [showStep1Component]="displayStep1Component" (informStep2)="isStep2Enabled()" (isStep2ButtonDisable)="setStep2ButtonEnabled($event)"></app-step1>
+<app-step2 [showStep2Component]="displayStep2Component" *ngIf="!isStep2ButtonDisable" 
+(informStep3)="isStep3Enabled()" [configList] = "configList" [imageUrl] = "image"></app-step2>
+<app-step3 [showStep3Component]="displayStep3Component" *ngIf="!isStep3ButtonDisable"
+ [configList] = "configList" [modelList] = "modelList" 
+[color] = "color" [config] = "config" [imageUrl] = "image"></app-step3>
+</div>
