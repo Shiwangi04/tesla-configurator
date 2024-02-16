@@ -36,7 +36,7 @@
             
         </table>
 
-        <div *ngIf="optionsSelected" [ngStyle]="{'width': '100%'}">
-            <img [src]="imageUrl" id="Image">
+        <div *ngIf="optionsSelected">
+            <img [src]="imageUrl?.src" id="Image">
         </div> 
 </div>

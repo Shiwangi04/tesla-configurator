@@ -22,7 +22,7 @@ export class Step2Component {
   modelCode: string = '';
   @Input() configList : ConfigList = {configs: [], towHitch: false, yoke: false};
   @Output() informStep3 = new EventEmitter();
-  @Input() imageUrl : SafeUrl = {};
+  @Input() imageUrl ?: HTMLImageElement;
 
   constructor(private route: Router, private modelsService: ModelsService) {}
 

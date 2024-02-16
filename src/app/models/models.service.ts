@@ -20,8 +20,8 @@ export class ModelsService {
   color : Model = {code : '', description: '', price:0 };
   modelList : ModelList = {colors: [], code : '', description: ''};
   config : Config = {id: 0, description: '', price:0, range: 0, speed: 0};
-  image = new Blob();
-  imageUrl : BehaviorSubject<Blob> = new BehaviorSubject(this.image);
+  image ?: HTMLImageElement;
+  imageUrl : BehaviorSubject<HTMLImageElement | undefined> = new BehaviorSubject(this.image);
   colorValue: BehaviorSubject<Model> = new BehaviorSubject(this.color);
   modelListValue: BehaviorSubject<ModelList> = new BehaviorSubject(this.modelList);
   configValue: BehaviorSubject<Config> = new BehaviorSubject(this.config);
@@ -43,15 +43,17 @@ export class ModelsService {
   }
 
   getModelsByCode(description: string) : Observable<Model[] | undefined> {
-    const response = this.getModels().pipe(map(res => res.filter(items => items.description === description))).pipe(map(result => { return result.at(0)?.colors; }));
+    let response = this.getModels().pipe(map(res => res.filter(items => items.description === description))).pipe(map(result => { return result.at(0)?.colors; }));
     return response;
   }
 
-  loadImageHttp(modelCode: string | undefined, colorCode: string | undefined):Observable<Blob> {
-    return this.http.get('https://interstate21.com/tesla-app/images/'+modelCode+'/'+colorCode+'.jpg', {
-    responseType: "blob"
-  });
+  loadImageHttp(modelCode: string , colorCode: string):HTMLImageElement {
+    const url = "https://interstate21.com/tesla-app/images/"+modelCode+"/"+colorCode+".jpg";
+    const image = new Image();
+    image.src = url;
+    return image;
   }
+
   getCodeByDescription(modelDesc: string, colorDesc: string) {
     this.getModels().pipe(map(res => res.filter(items => items.description === modelDesc && items.colors.filter((colorMap) => colorMap.description === colorDesc)))).pipe(map(result => { this.modelCode =  result.at(0)?.code; })); 
     this.getModels().pipe(map(res => res.filter(items => items.description === modelDesc && items.colors.filter((colorMap) => colorMap.description === colorDesc)))).pipe(map(result => { this.colorCode =  result.at(0)?.colors.filter(col => col.description === colorDesc).at(0)?.code; })); 

@@ -20,7 +20,7 @@ export class Step1Component {
   modelSelect :  ModelList = {colors: [], code : '', description: ''};
   colorSelect :  Model = {code : '', description: '', price:0 };
   optionsSelected = false;
-  imageUrl : SafeUrl = {};
+  imageUrl ?: HTMLImageElement;
   @Output() isStep2ButtonDisable = new EventEmitter<boolean>();
   selectedChoice ?: Boolean ;
   mainModel = {
@@ -54,7 +54,7 @@ export class Step1Component {
     this.modelsService.modelListValue.next(this.modelSelect);
     this.modelsService.colorValue.next({code : '', description: '', price:0 });
     this.selectedChoice = true;
-    this.imageUrl = '';
+    this.imageUrl = new Image();
     this.isStep2ButtonDisable.emit(true);
   }
 
@@ -69,11 +69,7 @@ export class Step1Component {
   }
 
   loadImageUrl() {
-    this.imageUrl = this.modelsService.loadImageHttp(this.modelSelect.code, this.colorSelect.code).subscribe((i) => {
-      this.image = i;
-      this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.image));
-      this.modelsService.imageUrl.next(this.image);
-    });
-   
+   this.imageUrl = this.modelsService.loadImageHttp(this.modelSelect.code, this.colorSelect.code);
+   this.modelsService.imageUrl.next(this.imageUrl);
   }
 }

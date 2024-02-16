@@ -25,7 +25,7 @@ export class AppComponent {
   modelCode: string = '';
   buttonClicked : string = '';
   configList: ConfigList = {configs: [], towHitch: false, yoke: false};
-  image : SafeUrl = {};
+  image ?: HTMLImageElement;
   color : Model = {code : '', description: '', price:0 };
   modelList : ModelList = {colors: [], code : '', description: ''};
   config : Config = {id: 0, description: '', price:0, range: 0, speed: 0};
@@ -55,7 +55,7 @@ export class AppComponent {
       this.config = data;
     });
     this.modelService.imageUrl.subscribe((data) => {
-      this.image = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data));
+      this.image = data;
     });
     this.buttonClicked = 'step2';
   }
@@ -84,7 +84,7 @@ export class AppComponent {
       this.config = data;
     });
     this.modelService.imageUrl.subscribe((data) => {
-      this.image = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data));
+      this.image = data;
     });
   }
 }

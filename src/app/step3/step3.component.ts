@@ -18,7 +18,7 @@ export class Step3Component {
   @Input() modelList : ModelList = {colors: [], code : '', description: ''};
   @Input() color : Model = {code : '', description: '', price:0 };
   @Input() config : Config = {id: 0, description: '', price:0, range: 0, speed: 0};
-  @Input() imageUrl : SafeUrl = {};
+  @Input() imageUrl ?: HTMLImageElement;
   price: number = 1000;
 
   total: number = 0;
