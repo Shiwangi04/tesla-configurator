@@ -22,7 +22,7 @@
     <td>
         <div>
             <label *ngIf="configSelect">Range: &nbsp;{{configSelect.range}}</label> <label *ngIf="configSelect">miles - Max speed: &nbsp;{{configSelect.speed}}</label>
-            <label *ngIf="configSelect"> - Cost: &nbsp;{{configSelect.price.toFixed(2) | currency:'USD':'symbol' }} </label>
+            <label *ngIf="configSelect"> - Cost: &nbsp;{{configSelect.price == null ? '0' : configSelect.price.toFixed(2) | currency:'USD':'symbol' }} </label>
         </div>
         <div>
             <label>Tow hitch? &nbsp;</label>
