@@ -75,13 +75,22 @@ export class AppComponent {
     this.displayStep1Component = false;
     this.buttonClicked = 'step3';
     this.modelService.colorValue.subscribe((data) => {
-      this.color = data;
+      if (data.description != null) {
+        this.color = data;
+      } else {
+        this.color = {code : '', description: '', price:0 };
+      }
+      
     });
     this.modelService.modelListValue.subscribe((data) => {
       this.modelList = data;
     });
     this.modelService.configValue.subscribe((data) => {
-      this.config = data;
+      if (data.description != null) {
+        this.config = data;
+      } else {
+        this.config = {id: 0, description: '', price:0, range: 0, speed: 0};
+      }
     });
     this.modelService.imageUrl.subscribe((data) => {
       this.image = data;
